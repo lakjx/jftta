@@ -46,7 +46,7 @@ jftta/
 └── runtime/
 ```
 
-`exp/` contains the released inference experiment. The other top-level directories retain the supporting analysis, plotting, and benchmark material. Model and critic checkpoints are hosted separately on Hugging Face.
+`exp/` contains the main OVAL experiment.
 
 ## Try OVAL
 
