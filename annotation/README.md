@@ -13,7 +13,7 @@ annotation_python=/home/xxx/anaconda3/envs/xxxxx/bin/python
 ```bash
 $annotation_python armorm.py \
   --data-dir ../original_annotation_validation/data \
-  --model ../../models/reward/ArmoRM-Llama3-8B-v0.1 \
+  --model ../models/reward/ArmoRM-Llama3-8B-v0.1 \
   --output ../annotation_runs/armorm.jsonl
 ```
 
@@ -33,7 +33,7 @@ Use `--base-url`, `--model`, and `--expected-returned-model` to specify a differ
 ##### Segment audit
 
 ```bash
-$annotation_python segment_audit.py --project-root ../..
+$annotation_python segment_audit.py --project-root ..
 ```
 
 Scoring commands save scores to `--output`, resume completed records automatically, and print annotation agreement statistics.

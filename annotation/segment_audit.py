@@ -56,7 +56,7 @@ def audit(path, backbone, dataset, preference, expected=None):
 
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument('--project-root', type=Path, default=Path(__file__).resolve().parents[2])
+    parser.add_argument('--project-root', type=Path, default=Path(__file__).resolve().parents[1])
     parser.add_argument('--inputs', nargs='+', type=Path)
     parser.add_argument('--segment-max-tokens', type=int, default=128)
     args = parser.parse_args()

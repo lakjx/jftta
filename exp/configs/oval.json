@@ -1,0 +1,52 @@
+{
+  "runtime": {
+    "generation_batch_size": 4,
+    "attn_implementation": "sdpa"
+  },
+  "generation": {
+    "max_new_tokens": 1024,
+    "max_input_tokens": 4096,
+    "temperature": 0.8,
+    "top_p": 0.95,
+    "top_k": 60,
+    "trim_incomplete_on_max": true,
+    "trim_min_token_fraction": 0.35
+  },
+  "models": {
+    "enable_thinking": false
+  },
+  "search": {
+    "mpc_steps": 8,
+    "mpc_candidates_per_step": 12,
+    "mpc_segment_max_tokens": 256,
+    "mpc_segment_min_tokens": 32,
+    "ftrl_lookahead_per_action": 2,
+    "ftrl_lookahead_max_tokens": 384,
+    "ftrl_target_top_k": 2,
+    "ftrl_margin": 0.005,
+    "ftrl_max_pairs": 128,
+    "ftrl_alpha": 0.003,
+    "ftrl_beta": 1.0,
+    "ftrl_l1": 0.0,
+    "ftrl_l2": 0.5,
+    "ftrl_max_delta_norm": 0.05,
+    "ftrl_target_score_blend": 0.5,
+    "ftrl_target_normalization": "none",
+    "ftrl_confidence_gate_z": 0.2,
+    "mpc_quality_repeat_threshold": 0.12,
+    "mpc_quality_repeat_penalty": 0.8,
+    "mpc_quality_hit_max_penalty": 0.02,
+    "mpc_quality_trimmed_penalty": 0.01,
+    "mpc_quality_long_token_threshold": 768,
+    "mpc_quality_long_token_penalty": 0.04,
+    "mpc_quality_meta_penalty": 0.05
+  },
+  "judge": {
+    "type": "candidate_hidden",
+    "input_format": "state_action",
+    "template": "state_action",
+    "layer": 23,
+    "pooling": "mean_last_128",
+    "batch_size": 4
+  }
+}
