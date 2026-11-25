@@ -31,7 +31,7 @@ jftta/
 │   ├── run.py                    OVAL inference entry point
 │   ├── requirements.txt
 │   ├── configs/oval.json         Generation and search settings
-│   ├── data/eval500.jsonl        Complete 500-prompt input set
+│   ├── data/eval500.jsonl        Test set
 │   └── src/
 │       ├── oval.py              Segment search and FTRL updates
 │       ├── value_head/          Critic loading and hidden-state features
@@ -48,9 +48,7 @@ jftta/
 
 `exp/` contains the released inference experiment. The other top-level directories retain the supporting analysis, plotting, and benchmark material. Model and critic checkpoints are hosted separately on Hugging Face.
 
-## Run the 500-prompt experiment
-
-Clone the repository and install the dependencies in an environment with CUDA-enabled PyTorch:
+## Try OVAL
 
 ```bash
 git clone https://github.com/lakjx/jftta.git
@@ -58,11 +56,11 @@ cd jftta
 pip install -r exp/requirements.txt
 ```
 
-Checkpoint location: [`aaaa12138/test1/ckpt0` on Hugging Face](https://huggingface.co/aaaa12138/test1/tree/main/ckpt0). The runner expects this layout:
+Checkpoint location: [`aaaa12138/test1/ckpt0`](https://huggingface.co/aaaa12138/test1/tree/main/ckpt0). The runner expects this layout:
 
 ```text
 ckpt0/
-├── model/                       Complete model and tokenizer
+├── model/
 └── critics/
     ├── helpfulness.pt
     ├── honesty.pt
@@ -70,19 +68,12 @@ ckpt0/
     └── truthfulness.pt
 ```
 
-The policy model already contains the merged base and LoRA weights, so inference loads a single complete model. The four dimension-named critic files use the same released ranking weights.
-
 Run the experiment:
 
 ```bash
 python exp/run.py \
   --checkpoint aaaa12138/test1 \
-  --checkpoint-subdir ckpt0 \
   --dimension all \
   --device cuda:0 \
   --output-dir outputs/oval
 ```
-
-This uses all 500 prompts in `exp/data/eval500.jsonl` and the settings in `exp/configs/oval.json`. It runs each dimension separately and writes `helpfulness.jsonl`, `honesty.jsonl`, `instruction_following.jsonl`, and `truthfulness.jsonl` under `outputs/oval/`, with one response per prompt.
-
-Use `--dimension helpfulness`, `honesty`, `instruction_following`, or `truthfulness` to run only one dimension. Add `--resume` to the same command to continue an interrupted run. For downloaded checkpoints, replace the checkpoint options with `--checkpoint /path/to/ckpt0`.
